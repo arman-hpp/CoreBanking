@@ -1,5 +1,8 @@
 package com.bank.enums.accounts;
 
+import lombok.Getter;
+
+@Getter
 public enum Currencies {
     Rial("R"),
     Dollar("$");

@@ -1,5 +1,8 @@
 package com.bank.web.extensions.exporters;
 
+import lombok.Getter;
+
+@Getter
 public enum ExportTypes {
     Excel(".xlsx"),
     CSV(".csv"),

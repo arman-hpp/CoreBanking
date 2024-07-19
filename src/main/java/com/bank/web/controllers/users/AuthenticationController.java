@@ -1,6 +1,5 @@
 package com.bank.web.controllers.users;
 
-import com.bank.models.users.User;
 import com.bank.repos.users.UserRepository;
 import com.bank.services.users.CaptchaService;
 import com.bank.web.extensions.thymeleaf.Layout;

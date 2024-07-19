@@ -7,7 +7,7 @@ public final class StringUtils {
     }
 
     public static String capitalize(String value) {
-        if (value == null || value.equals(""))
+        if (value == null || value.isEmpty())
             return value;
 
         var result = value.substring(0, 1).toUpperCase();

@@ -1,5 +1,8 @@
 package com.bank.web.extensions.errors;
 
+import lombok.Getter;
+
+@Getter
 public enum ControllerDefaultErrors {
     UnhandledError("error.public.unexpected"),
     InvalidInputParameters("error.public.inputs.invalid"),

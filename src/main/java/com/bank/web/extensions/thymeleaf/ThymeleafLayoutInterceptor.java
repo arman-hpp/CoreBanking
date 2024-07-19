@@ -1,6 +1,7 @@
 package com.bank.web.extensions.thymeleaf;
 
 import jakarta.servlet.http.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.*;
@@ -11,7 +12,7 @@ public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
     private static final String DEFAULT_TITLE_ATTRIBUTE_NAME = "title";
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) {
+    public void postHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, @Nullable ModelAndView modelAndView) {
         if (modelAndView == null || !modelAndView.hasView()) {
             return;
         }

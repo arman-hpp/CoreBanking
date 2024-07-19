@@ -4,8 +4,6 @@ import com.bank.models.AuditableObject;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor

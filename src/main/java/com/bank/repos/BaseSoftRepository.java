@@ -1,6 +1,5 @@
 package com.bank.repos;
 
-import com.bank.models.BaseEntity;
 import com.bank.models.BaseSoftEntity;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.repository.CrudRepository;
