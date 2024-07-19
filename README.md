@@ -4,26 +4,14 @@
 This repository has been developed by `Arman Hassanpour` to fulfill the final project of Java course by `Ali Gholami` at `Tosan Academy`. It is subject to submitted documents.
 To develop the project, Spring Boot 3 has been used. The project is compatible with Java 17 and can be run on JDK 18.\
 \
-The project is a multi-module project. It has been built from a parent pom that manages a group of submodules. This project has 6 modules named `utils`,`model`,`repository`,`loan`,`core_banking`,`application`.
-When a multi-module project is run, all the modules are deployed together; furthermore an individual module can be deployed.
-
-
-#### Utils module
-The Utils module contains helpers which are being used throughout the entire application.
-
-#### Model module
-The Model module contains Entities which have been used in the project.
-
-#### Repository module
-The Repository module contains repositories which have been used in the project. It depends on the Model module.
-
-#### Service module (core_banking and loan)
-The Service module implements the services. It depends on Repository module, Model module and Utils module. According to the documentation of the project, this module has been broken into two modules named `core_banking` and `loan`.
-
-#### Application module
-The application module is the main module of the project. It contains the application class in which the main method is defined that is necessary to run the Spring Boot Application. It also contains application configuration properties, controllers, views, and resources.
-The Application module includes Service Implementation modules (core_banking and loan) as dependency that contains Model module, Repository module, and Utils module.
-
+This project is a banking software to managing customers and accounts and also has the capability to provide financial facilities to bank customers. Banking software is very extensive and comprehensive, usually following many accounting principles. However, in this project, apart from the method of calculating installments, no specific accounting principle has been used. Additionally, the rules for facilities in Islamic banking are very complex, which have not been applied in this project.
+\
+The overall scenario of the intended system is as follows: a bank user can define customers in the software and open accounts for them. Then, based on customer requests, they can create loan files and deposit the loan amount into the customer's account. Subsequently, according to the created installment schedule, they can collect monthly installments from the customer until the entire loan is settled.
+\
+Besides the main scenario, the system also provides features such as reporting to manage the bank's capital for the bank manager. The system includes two types of users:
+\
+* User (bank employee) - who performs customer-related operations such as opening accounts and creating loan files.</p></li>
+* Manager (branch manager) - who performs managerial operations such as reporting or allocating budgets for providing facilities to customers.</p></li>
 
 ### Prerequisites
 * Maven
