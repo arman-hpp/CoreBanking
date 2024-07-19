@@ -4,12 +4,13 @@
 This repository has been developed by `Arman Hassanpour` to fulfill the final project of Java course by `Ali Gholami` at `Tosan Academy`. It is subject to submitted documents.
 To develop the project, Spring Boot 3 has been used. The project is compatible with Java 17 and can be run on JDK 18.\
 \
-This project is a banking software to managing customers and accounts and also has the capability to provide financial facilities to bank customers. Banking software is very extensive and comprehensive, usually following many accounting principles. However, in this project, apart from the method of calculating installments, no specific accounting principle has been used. Additionally, the rules for facilities in Islamic banking are very complex, which have not been applied in this project.
+This project is a banking software to managing customers and accounts and also has the capability to provide financial facilities to bank customers. Banking software is very extensive and comprehensive, usually following many accounting principles. However, in this project, apart from the method of calculating installments, no specific accounting principle has been used. Additionally, the rules for facilities in Islamic banking are very complex, which have not been applied in this project.\
 \
-The overall scenario of the intended system is as follows: a bank user can define customers in the software and open accounts for them. Then, based on customer requests, they can create loan files and deposit the loan amount into the customer's account. Subsequently, according to the created installment schedule, they can collect monthly installments from the customer until the entire loan is settled.
+The overall scenario of the intended system is as follows: a bank user can define customers in the software and open accounts for them. Then, based on customer requests, they can create loan files and deposit the loan amount into the customer's account. Subsequently, according to the created installment schedule, they can collect monthly installments from the customer until the entire loan is settled.\
 \
-Besides the main scenario, the system also provides features such as reporting to manage the bank's capital for the bank manager. The system includes two types of users:
+Besides the main scenario, the system also provides features such as reporting to manage the bank's capital for the bank manager.\
 \
+The system includes two types of users:
 * User (bank employee) - who performs customer-related operations such as opening accounts and creating loan files.</p></li>
 * Manager (branch manager) - who performs managerial operations such as reporting or allocating budgets for providing facilities to customers.</p></li>
 
