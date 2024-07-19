@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <div th:fragment="content" class="p-4">
+        <p class="lh-lg fs-6">This repository has been developed by <u>Arman Hassanpour</u> to fulfill the final project of Java course by <u>Ali Gholami</u> at <u>Tosan Academy</u>. It is subject to submitted documents.
+            To develop the project, Spring Boot 3 has been used. The project is compatible with Java 22 and can be run on OpenJDK 22.</p>
+        <p class="lh-lg fs-6">
+            This project is a banking software to managing customers and accounts and also has the capability to provide financial facilities to bank customers. Banking software is very extensive and comprehensive, usually following many accounting principles. However, in this project, apart from the method of calculating installments, no specific accounting principle has been used. Additionally, the rules for facilities in Islamic banking are very complex, which have not been applied in this project.
+        </p>
+        <p class="lh-lg fs-6">
+            The overall scenario of the intended system is as follows: a bank user can define customers in the software and open accounts for them. Then, based on customer requests, they can create loan files and deposit the loan amount into the customer's account. Subsequently, according to the created installment schedule, they can collect monthly installments from the customer until the entire loan is settled.
+        </p>
+        <p class="lh-lg fs-6">
+            Besides the main scenario, the system also provides features such as reporting to manage the bank's capital for the bank manager. The system includes two types of users:
+        </p>
+        <ul>
+            <li><p class="lh-base fs-6"><strong>User (bank employee)</strong> who performs customer-related operations such as opening accounts and creating loan files.</p></li>
+            <li><p class="lh-base fs-6"><strong>Manager (branch manager)</strong> who performs managerial operations such as reporting or allocating budgets for providing facilities to customers.</p></li>
+        </ul>
+    </div>
+</body>
+</html>

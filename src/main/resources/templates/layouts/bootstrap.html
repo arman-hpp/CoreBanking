@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--/*@thymesVar id="title" type="java.lang.String"*/-->
+  <title th:text="${title}">Bootstrap Layout</title>
+  <link href="../../static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="../../static/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <link href="../../static/modules/css/dashboard.css" rel="stylesheet"/>
+  <link href="../../static/modules/css/bootstrap.css" rel="stylesheet"/>
+  <link href="../../static/icons/favicon.ico" rel="icon" type="image/x-icon"/>
+</head>
+<body class="text-center">
+<main class="form-signin w-100 m-auto">
+  <div th:replace="~{${view} :: content}"></div>
+</main>
+</body>
+</html>
