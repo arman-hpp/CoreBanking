@@ -36,8 +36,8 @@ The system includes two types of users:
 * [IText Core](https://mvnrepository.com/artifact/com.itextpdf/itextpdf)
 
 ### Installation
-* `git clone https://github.com/arman-arian/Tosan-Academy-Final-Java-Project.git`
-* `cd Tosan-Academy-Final-Java-Project`
+* `git clone https://github.com/arman-hpp/CoreBanking`
+* `cd CoreBanking`
 * `$mvnw install`
 
 ### Testing (Compile + Testing)
