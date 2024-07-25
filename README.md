@@ -1,4 +1,4 @@
-# Tosan-Academy-Final-Java-Project
+# CoreBanking
 
 ### About
 This repository has been developed by `Arman Hassanpour` to fulfill the final project of Java course by `Ali Gholami` at `Tosan Academy`. It is subject to submitted documents.
