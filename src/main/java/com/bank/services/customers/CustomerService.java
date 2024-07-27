@@ -5,6 +5,7 @@ import com.bank.exceptions.DomainException;
 import com.bank.models.customers.Customer;
 import com.bank.repos.customers.CustomerRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,6 +66,13 @@ public class CustomerService {
         if (customer == null)
             throw new DomainException("error.customer.notFound");
 
-        _customerRepository.delete(customer);
+        try
+        {
+            _customerRepository.delete(customer);
+        }
+        catch (DataIntegrityViolationException ex)
+        {
+            throw new DomainException("error.public.dependent.entity");
+        }
     }
 }
