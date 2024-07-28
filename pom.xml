@@ -112,6 +112,11 @@
             <artifactId>spring-session-core</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
