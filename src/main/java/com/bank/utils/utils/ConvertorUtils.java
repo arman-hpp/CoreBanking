@@ -17,4 +17,12 @@ public final class ConvertorUtils {
             return defaultVal;
         }
     }
+
+    public static Boolean tryParseBool(String value, Boolean defaultVal) {
+        try {
+            return Boolean.parseBoolean(value);
+        } catch (NumberFormatException e) {
+            return defaultVal;
+        }
+    }
 }

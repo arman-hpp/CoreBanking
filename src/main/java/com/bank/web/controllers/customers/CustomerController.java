@@ -1,5 +1,6 @@
 package com.bank.web.controllers.customers;
 
+import com.bank.utils.web.RequestParamsBuilder;
 import com.bank.web.extensions.errors.ControllerErrorParser;
 import com.bank.web.extensions.errors.ControllerDefaultErrors;
 import com.bank.web.extensions.thymeleaf.Layout;
@@ -25,20 +26,35 @@ public class CustomerController {
     }
 
     @GetMapping({"/","/index"})
-    public String loadForm(@RequestParam(required = false, name = "customer_id") String customerId, Model model) {
+    public String loadForm(
+            @RequestParam(required = false, name = "customer_id") String customerId,
+            @RequestParam(name = "search", defaultValue = "false") String search,
+            Model model) {
+
         var customerIdLong = ConvertorUtils.tryParseLong(customerId, null);
+        var searchBool = ConvertorUtils.tryParseBool(search, false);
+
 
         try {
             if (customerIdLong == null) {
                 var customerDtoList = _customerService.loadCustomers();
-                model.addAttribute("customerDto", new CustomerDto());
                 model.addAttribute("customerDtoList", customerDtoList);
+                model.addAttribute("customerDto", new CustomerDto());
                 model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
             } else {
                 var foundCustomer = _customerService.loadCustomer(customerIdLong);
-                model.addAttribute("customerDto", new CustomerDto());
-                model.addAttribute("customerDtoList", foundCustomer);
-                model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto(customerIdLong));
+                if(searchBool)
+                {
+                    model.addAttribute("customerDtoList", foundCustomer);
+                    model.addAttribute("customerDto", new CustomerDto());
+                    model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto(customerIdLong));
+                }
+                else {
+                    var customerDtoList = _customerService.loadCustomers();
+                    model.addAttribute("customerDtoList", customerDtoList);
+                    model.addAttribute("customerDto", foundCustomer);
+                    model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
+                }
             }
 
             return "views/user/customer";
@@ -47,27 +63,27 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/index/{id}")
-    public String loadFormById(@PathVariable String id, Model model) {
-        var idLong = ConvertorUtils.tryParseLong(id, -1L);
-        if (idLong <= 0) {
-            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ControllerDefaultErrors.InvalidInputParameters);
-        }
-
-        try {
-            var foundCustomer = _customerService.loadCustomer(idLong);
-            model.addAttribute("customerDto", foundCustomer);
-
-            var customers = _customerService.loadCustomers();
-            model.addAttribute("customerDtoList", customers);
-
-            model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
-
-            return "views/user/customer";
-        } catch (Exception ex) {
-            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ex);
-        }
-    }
+//    @GetMapping("/index/{id}")
+//    public String loadFormById(@PathVariable String id, Model model) {
+//        var idLong = ConvertorUtils.tryParseLong(id, -1L);
+//        if (idLong <= 0) {
+//            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ControllerDefaultErrors.InvalidInputParameters);
+//        }
+//
+//        try {
+//            var foundCustomer = _customerService.loadCustomer(idLong);
+//            model.addAttribute("customerDto", foundCustomer);
+//
+//            var customers = _customerService.loadCustomers();
+//            model.addAttribute("customerDtoList", customers);
+//
+//            model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
+//
+//            return "views/user/customer";
+//        } catch (Exception ex) {
+//            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ex);
+//        }
+//    }
 
     @PostMapping("/addCustomer")
     public String addSubmit(@ModelAttribute CustomerDto customerDto, BindingResult bindingResult) {
@@ -107,7 +123,8 @@ public class CustomerController {
             return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ControllerDefaultErrors.InvalidInputParameters);
         }
 
-        return "redirect:/customer/index/" + idLong;
+        // return "redirect:/customer/index/" + idLong;
+        return "redirect:/customer/index?customer_id=" + idLong;
     }
 
     @PostMapping("/searchCustomer")
@@ -121,6 +138,9 @@ public class CustomerController {
             return "redirect:/customer/index";
         }
 
-        return "redirect:/customer/index?customer_id=" + customerId;
+        return new RequestParamsBuilder("redirect:/customer/index?customer_id")
+                .Add("customer_id", customerId)
+                .Add("search", "true")
+                .toString();
     }
 }
