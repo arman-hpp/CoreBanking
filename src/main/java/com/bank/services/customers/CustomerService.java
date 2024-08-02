@@ -107,10 +107,10 @@ public class CustomerService {
         }
     }
 
-    public Page<CustomerDto> loadCustomerByFilter(List<FilterDto> filterDTOList, int page, int size) {
+    public Page<CustomerDto> loadCustomerByFilter(List<FilterDto> filterDtoList, int page, int size) {
         var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "Id"));
         var spec = new BaseSpecification<Customer>();
-        var customers = _customerRepository.findAll(spec.columnEqual(filterDTOList), pageable);
+        var customers = _customerRepository.findAll(spec.columnEqual(filterDtoList), pageable);
         return customers.map(customer -> _modelMapper.map(customer, CustomerDto.class));
     }
 }
