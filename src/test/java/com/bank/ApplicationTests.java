@@ -1,8 +1,10 @@
 package com.bank;
 
 
+import com.bank.dtos.FilterDto;
 import com.bank.enums.accounts.AccountTypes;
 import com.bank.enums.accounts.Currencies;
+import com.bank.services.customers.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,8 @@ import com.bank.services.accounts.AccountService;
 import com.bank.services.transactions.TransactionService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -53,6 +57,9 @@ class ApplicationTests {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private CustomerService customerService;
+
     @Test
     void contextLoads() {
     }
@@ -78,6 +85,14 @@ class ApplicationTests {
             accountRepository.findAccountWithDetails(1L);
             accountRepository.findAllAccountsWithDetails();
         });
+    }
+
+    @Test
+    public void testFilter() {
+        var filters = new ArrayList<FilterDto>();
+        //filters.add(new FilterDto("id", "=", 2));
+        filters.add(new FilterDto("firstName", "=", "Ali"));
+        var customer = customerService.loadCustomerByFilter(filters, 0, 10);
     }
 //
 //    @Test

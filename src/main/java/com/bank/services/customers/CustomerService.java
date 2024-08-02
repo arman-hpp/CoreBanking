@@ -1,7 +1,9 @@
 package com.bank.services.customers;
 
+import com.bank.dtos.FilterDto;
 import com.bank.dtos.customers.CustomerDto;
 import com.bank.exceptions.DomainException;
+import com.bank.models.BaseSpecification;
 import com.bank.models.customers.Customer;
 import com.bank.repos.customers.CustomerRepository;
 import org.modelmapper.ModelMapper;
@@ -12,6 +14,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -100,5 +105,12 @@ public class CustomerService {
         {
             throw new DomainException("error.public.dependent.entity");
         }
+    }
+
+    public Page<CustomerDto> loadCustomerByFilter(List<FilterDto> filterDTOList, int page, int size) {
+        var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "Id"));
+        var spec = new BaseSpecification<Customer>();
+        var customers = _customerRepository.findAll(spec.columnEqual(filterDTOList), pageable);
+        return customers.map(customer -> _modelMapper.map(customer, CustomerDto.class));
     }
 }
