@@ -22,7 +22,6 @@ import com.bank.services.transactions.TransactionService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
