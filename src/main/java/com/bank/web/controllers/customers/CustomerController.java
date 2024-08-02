@@ -138,7 +138,7 @@ public class CustomerController {
             return "redirect:/customer/index";
         }
 
-        return new RequestParamsBuilder("redirect:/customer/index?customer_id")
+        return new RequestParamsBuilder("redirect:/customer/index")
                 .Add("customer_id", customerId)
                 .Add("search", "true")
                 .toString();
