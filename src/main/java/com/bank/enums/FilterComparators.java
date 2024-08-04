@@ -16,5 +16,5 @@ public enum FilterComparators {
     IS_NULL,
     IS_NOT_NULL,
     IS_EMPTY,
-    IS_NOT_EMPTY;
+    IS_NOT_EMPTY
 }
