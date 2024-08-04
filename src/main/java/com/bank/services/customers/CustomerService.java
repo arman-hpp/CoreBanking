@@ -1,9 +1,9 @@
 package com.bank.services.customers;
 
-import com.bank.dtos.FilterDto;
 import com.bank.dtos.customers.CustomerDto;
 import com.bank.exceptions.DomainException;
-import com.bank.models.BaseSpecification;
+import com.bank.models.BaseFilter;
+import com.bank.models.FilterSpecification;
 import com.bank.models.customers.Customer;
 import com.bank.repos.customers.CustomerRepository;
 import org.modelmapper.ModelMapper;
@@ -107,10 +107,10 @@ public class CustomerService {
         }
     }
 
-    public Page<CustomerDto> loadCustomerByFilter(List<FilterDto> filterDtoList, int page, int size) {
+    public Page<CustomerDto> loadCustomerByFilter(List<BaseFilter> filterList, int page, int size) {
         var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "Id"));
-        var spec = new BaseSpecification<Customer>();
-        var customers = _customerRepository.findAll(spec.columnEqual(filterDtoList), pageable);
+        var spec = new FilterSpecification<Customer>(filterList);
+        var customers = _customerRepository.findAll(spec, pageable);
         return customers.map(customer -> _modelMapper.map(customer, CustomerDto.class));
     }
 }

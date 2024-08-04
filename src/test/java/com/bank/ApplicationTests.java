@@ -1,9 +1,9 @@
 package com.bank;
 
-
-import com.bank.dtos.FilterDto;
+import com.bank.enums.FilterComparators;
 import com.bank.enums.accounts.AccountTypes;
 import com.bank.enums.accounts.Currencies;
+import com.bank.models.BaseFilter;
 import com.bank.services.customers.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +88,9 @@ class ApplicationTests {
 
     @Test
     public void testFilter() {
-        var filters = new ArrayList<FilterDto>();
+        var filters = new ArrayList<BaseFilter>();
         //filters.add(new FilterDto("id", "=", 2));
-        filters.add(new FilterDto("firstName", "=", "Ali"));
+        filters.add(new BaseFilter("firstName", FilterComparators.EQUAL, "Ali", ""));
         var customer = customerService.loadCustomerByFilter(filters, 0, 10);
     }
 //
