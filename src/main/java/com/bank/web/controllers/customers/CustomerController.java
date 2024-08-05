@@ -29,61 +29,42 @@ public class CustomerController {
     public String loadForm(
             @RequestParam(required = false, name = "customer_id") String customerId,
             @RequestParam(name = "search", defaultValue = "false") String search,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "2") Integer size,
             Model model) {
 
         var customerIdLong = ConvertorUtils.tryParseLong(customerId, null);
         var searchBool = ConvertorUtils.tryParseBool(search, false);
 
-
         try {
-            if (customerIdLong == null) {
-                var customerDtoList = _customerService.loadCustomers();
-                model.addAttribute("customerDtoList", customerDtoList);
+            if (searchBool && customerIdLong != null) {
+                var foundCustomer = _customerService.searchCustomers(customerIdLong, page, size);
+                model.addAttribute("customerDtoList", foundCustomer);
                 model.addAttribute("customerDto", new CustomerDto());
-                model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
+                model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto(customerIdLong));
             } else {
-                var foundCustomer = _customerService.loadCustomer(customerIdLong);
-                if(searchBool)
-                {
-                    model.addAttribute("customerDtoList", foundCustomer);
+                if (customerIdLong == null) {
+                    var customerDtoList = _customerService.loadCustomers(page, size);
+                    model.addAttribute("customerDtoList", customerDtoList);
                     model.addAttribute("customerDto", new CustomerDto());
-                    model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto(customerIdLong));
-                }
-                else {
-                    var customerDtoList = _customerService.loadCustomers();
+                    model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
+                } else {
+                    var foundCustomer = _customerService.loadCustomer(customerIdLong);
+                    var customerDtoList = _customerService.loadCustomers(page, size);
                     model.addAttribute("customerDtoList", customerDtoList);
                     model.addAttribute("customerDto", foundCustomer);
                     model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
                 }
             }
 
+            model.addAttribute("currentPage", page);
+            model.addAttribute("pageSize", size);
+
             return "views/user/customer";
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ex);
         }
     }
-
-//    @GetMapping("/index/{id}")
-//    public String loadFormById(@PathVariable String id, Model model) {
-//        var idLong = ConvertorUtils.tryParseLong(id, -1L);
-//        if (idLong <= 0) {
-//            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ControllerDefaultErrors.InvalidInputParameters);
-//        }
-//
-//        try {
-//            var foundCustomer = _customerService.loadCustomer(idLong);
-//            model.addAttribute("customerDto", foundCustomer);
-//
-//            var customers = _customerService.loadCustomers();
-//            model.addAttribute("customerDtoList", customers);
-//
-//            model.addAttribute("customerSearchInputDto", new CustomerSearchInputDto());
-//
-//            return "views/user/customer";
-//        } catch (Exception ex) {
-//            return "redirect:/customer/index?error=" + ControllerErrorParser.getError(ex);
-//        }
-//    }
 
     @PostMapping("/addCustomer")
     public String addSubmit(@ModelAttribute CustomerDto customerDto, BindingResult bindingResult) {

@@ -47,6 +47,20 @@ public class CustomerService {
         return customerDtoList;
     }
 
+    public Page<CustomerDto> loadCustomers(int page, int size) {
+        var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "Id"));
+        var customers = _customerRepository.findAll(pageable);
+
+        return customers.map(product -> _modelMapper.map(product, CustomerDto.class));
+    }
+
+    public Page<CustomerDto> searchCustomers(Long customerId, int page, int size) {
+        var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "Id"));
+        var customers = _customerRepository.findById(customerId, pageable);
+
+        return customers.map(product -> _modelMapper.map(product, CustomerDto.class));
+    }
+
     @Cacheable(value = "customer", key = "#customerId")
     public CustomerDto loadCustomer(Long customerId) {
         var customer = _customerRepository.findById(customerId).orElse(null);

@@ -117,6 +117,24 @@
             </tr>
             </tbody>
         </table>
+
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${customerDtoList.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/customer/index?page=${currentPage - 1}&size=${pageSize}|}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, customerDtoList.totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{|/customer/index?page=${i}&size=${pageSize}|}" th:text="${i + 1}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${customerDtoList.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/customer/index?page=${currentPage + 1}&size=${pageSize}|}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 </body>
